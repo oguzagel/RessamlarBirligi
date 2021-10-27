@@ -8,12 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Artist extends Model
 {
     use HasFactory;
-
-    public function works(){
-        return $this->hasMany(Work::class);
-    }
-
-    
-
-    
 }

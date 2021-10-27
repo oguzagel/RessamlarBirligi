@@ -1,4 +1,17 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/admin/style.css": "/css/admin/style.css",
+    "/css/app.css": "/css/app.css",
+    "/images/1.jpg": "/images/1.jpg",
+    "/images/dots.png": "/images/dots.png",
+    "/images/dots2.png": "/images/dots2.png",
+    "/images/favicon.png": "/images/favicon.png",
+    "/images/hill.jpg": "/images/hill.jpg",
+    "/images/like.png": "/images/like.png",
+    "/images/logo-full.png": "/images/logo-full.png",
+    "/images/logo-text.png": "/images/logo-text.png",
+    "/images/logo.png": "/images/logo.png",
+    "/images/qr.png": "/images/qr.png",
+    "/js/admin/custom.min.js": "/js/admin/custom.min.js",
+    "/js/admin/test.js": "/js/admin/test.js"
 }

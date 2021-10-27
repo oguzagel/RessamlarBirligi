@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -14,9 +15,18 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
+
+    
+
+
+    
+
+
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+
+        $faker = \Faker\Factory::create();
 
         DB::table('categories')->insert([ 'name' =>  'Painting']);
         DB::table('categories')->insert([ 'name' =>  'Sculpture']);
@@ -36,41 +46,81 @@ class DatabaseSeeder extends Seeder
             'is_admin' => true
         ]);
 
-        /* 
+         
         DB::table('artists')->insert([
-            'name' => $this->faker->name(),
-            'content_az' => $this->faker->text(),
-            'content_en' => $this->faker->text(),
+            'name' =>  $faker->name(),
+            'content_az' => $faker->text(),
+            'content_en' => $faker->text(),
             'category_id' => 1,
             'status' => 1,
         ]);
         
         DB::table('artists')->insert([
-            'name' => $this->faker->name(),
-            'content_az' => $this->faker->text(),
-            'content_en' => $this->faker->text(),
+            'name' => $faker->name(),
+            'content_az' => $faker->text(),
+            'content_en' => $faker->text(),
             'category_id' => 2,
             'status' => 1,
         ]);
         
         DB::table('artists')->insert([
-            'name' => $this->faker->name(),
-            'content_az' => $this->faker->text(),
-            'content_en' => $this->faker->text(),
+            'name' => $faker->name(),
+            'content_az' => $faker->text(),
+            'content_en' => $faker->text(),
             'category_id' => 3,
             'status' => 1,
         ]);
         
         
         DB::table('artists')->insert([
-            'name' => $this->faker->name(),
-            'content_az' => $this->faker->text(),
-            'content_en' => $this->faker->text(),
+            'name' => $faker->name(),
+            'content_az' => $faker->text(),
+            'content_en' => $faker->text(),
             'category_id' => 4,
             'status' => 1,
         ]);
 
-         */
+
+        DB::table('works')->insert([
+            'name_az' =>  $faker->sentence(3),
+            'name_en' =>  $faker->sentence(3),
+            'path' => 'https://dummyimage.com/600x400/000/fff',
+            'status' => 1,
+            'artist_id' => 1,
+        ]);
+         
+        DB::table('works')->insert([
+            'name_az' =>  $faker->sentence(3),
+            'name_en' =>  $faker->sentence(3),
+            'path' => 'https://dummyimage.com/600x400/000/fff',
+            'status' => 1,
+            'artist_id' => 1,
+        ]);
+         
+        DB::table('works')->insert([
+            'name_az' =>  $faker->sentence(3),
+            'name_en' =>  $faker->sentence(3),
+            'path' => 'https://dummyimage.com/600x400/000/fff',
+            'status' => 1,
+            'artist_id' => 1,
+        ]);
+         
+        DB::table('works')->insert([
+            'name_az' =>  $faker->sentence(3),
+            'name_en' =>  $faker->sentence(3),
+            'path' => 'https://dummyimage.com/600x400/000/fff',
+            'status' => 1,
+            'artist_id' => 1,
+        ]);
+         
+        DB::table('works')->insert([
+            'name_az' =>  $faker->sentence(3),
+            'name_en' =>  $faker->sentence(3),
+            'path' => 'https://dummyimage.com/600x400/000/fff',
+            'status' => 1,
+            'artist_id' => 1,
+        ]);
+         
 
 
     }

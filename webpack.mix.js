@@ -13,4 +13,10 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
+    .copyDirectory('resources/images','public/images')
+    .copyDirectory('resources/icons','public/icons')
+    .copyDirectory('resources/vendor','public/vendor')
+    .copyDirectory('resources/js/admin','public/js/admin')
+    .postCss('resources/css/admin/style.css', 'public/css/admin/style.css')
+
     .sourceMaps();
