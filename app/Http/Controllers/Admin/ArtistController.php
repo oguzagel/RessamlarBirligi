@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Artist;
 use Illuminate\Http\Request;
 
 class ArtistController extends Controller
@@ -12,9 +13,24 @@ class ArtistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.artist.index');
+        $orderBy = $request->orderBy ?? 'desc';
+        $sortBy = $request->sortBy ?? 'id';
+        $search = "";
+        $artists = Artist::with('categories')->orderBy($sortBy,$orderBy)->paginate(2);
+
+
+        if($orderBy === 'desc')
+         $orderBy = 'asc';
+        else
+         $orderBy = 'desc';
+
+                
+        return view('admin.artist.index', [ 'artists' => $artists,
+                                            'orderBy' => $orderBy,
+                                            'sortBy' => $sortBy,
+                                            'search' => $search]);
     }
 
     /**

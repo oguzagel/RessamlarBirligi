@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -51,7 +52,7 @@ class DatabaseSeeder extends Seeder
             'name' =>  $faker->name(),
             'content_az' => $faker->text(),
             'content_en' => $faker->text(),
-            'category_id' => 1,
+            'image' => 'https://dummyimage.com/400x400/000/fff',
             'status' => 1,
         ]);
         
@@ -59,7 +60,7 @@ class DatabaseSeeder extends Seeder
             'name' => $faker->name(),
             'content_az' => $faker->text(),
             'content_en' => $faker->text(),
-            'category_id' => 2,
+            'image' => 'https://dummyimage.com/400x400/000/fff',
             'status' => 1,
         ]);
         
@@ -67,7 +68,7 @@ class DatabaseSeeder extends Seeder
             'name' => $faker->name(),
             'content_az' => $faker->text(),
             'content_en' => $faker->text(),
-            'category_id' => 3,
+            'image' => 'https://dummyimage.com/400x400/000/fff',
             'status' => 1,
         ]);
         
@@ -76,7 +77,7 @@ class DatabaseSeeder extends Seeder
             'name' => $faker->name(),
             'content_az' => $faker->text(),
             'content_en' => $faker->text(),
-            'category_id' => 4,
+            'image' => 'https://dummyimage.com/400x400/000/fff',
             'status' => 1,
         ]);
 
@@ -94,7 +95,23 @@ class DatabaseSeeder extends Seeder
             'name_en' =>  $faker->sentence(3),
             'path' => 'https://dummyimage.com/600x400/000/fff',
             'status' => 1,
-            'artist_id' => 1,
+            'artist_id' => 2,
+        ]);
+         
+        DB::table('works')->insert([
+            'name_az' =>  $faker->sentence(3),
+            'name_en' =>  $faker->sentence(3),
+            'path' => 'https://dummyimage.com/600x400/000/fff',
+            'status' => 1,
+            'artist_id' => 3,
+        ]);
+         
+        DB::table('works')->insert([
+            'name_az' =>  $faker->sentence(3),
+            'name_en' =>  $faker->sentence(3),
+            'path' => 'https://dummyimage.com/600x400/000/fff',
+            'status' => 1,
+            'artist_id' => 4,
         ]);
          
         DB::table('works')->insert([
@@ -105,23 +122,11 @@ class DatabaseSeeder extends Seeder
             'artist_id' => 1,
         ]);
          
-        DB::table('works')->insert([
-            'name_az' =>  $faker->sentence(3),
-            'name_en' =>  $faker->sentence(3),
-            'path' => 'https://dummyimage.com/600x400/000/fff',
-            'status' => 1,
-            'artist_id' => 1,
-        ]);
-         
-        DB::table('works')->insert([
-            'name_az' =>  $faker->sentence(3),
-            'name_en' =>  $faker->sentence(3),
-            'path' => 'https://dummyimage.com/600x400/000/fff',
-            'status' => 1,
-            'artist_id' => 1,
-        ]);
-         
-
-
+        
+        DB::table('artist_categories')->insert([ 'artist_id'=>1  , 'category_id' =>1   ]);
+        DB::table('artist_categories')->insert([ 'artist_id'=>2  , 'category_id' =>1   ]);
+        DB::table('artist_categories')->insert([ 'artist_id'=>3  , 'category_id' =>1   ]);
+        DB::table('artist_categories')->insert([ 'artist_id'=>4  , 'category_id' =>1   ]);
+        DB::table('artist_categories')->insert([ 'artist_id'=>1  , 'category_id' =>2   ]);
     }
 }
