@@ -8,8 +8,8 @@
 @section('content')
     <div class="card card-body">
         <h3>Home Page !!!!</h3>
+        <p> <a class="btn btn btn-rounded btn-info" href="{{ route('admin.ressamlar.create') }}"><span class="btn-icon-left text-info"><i class="fa fa-plus color-info fa-xs"></i></span> Yeni Artist Ekle </a>  </p>
         @if ($artists)
-            
             <table class="table table-responsive-md">
                 <thead>
                     <tr>
