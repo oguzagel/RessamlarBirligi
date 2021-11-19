@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArtistStoreRequest;
 use App\Models\Artist;
+use App\Models\ArtistCategory;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ArtistController extends Controller
 {
@@ -41,7 +44,8 @@ class ArtistController extends Controller
      */
     public function create()
     {
-        return view('admin.artist.create');
+        $cats = Category::all();
+        return view('admin.artist.create', ['list' => $cats] );
     }
 
     /**
@@ -53,8 +57,54 @@ class ArtistController extends Controller
     public function store(ArtistStoreRequest $request)
     {
         $data = $request->validated();
+        
+        
+        $hasfile = $request->hasFile('image');
+        if($hasfile){
+           $file = $request->file('image');
+           
+           $path = null;
 
-        dd($data);
+           try {
+               $path = Storage::disk('public')->put('artists',$file);
+           } catch (\Throwable $th) {
+               return response()->json(['error'=>'true', 'message'=>'Dosya yükleme hatası']);
+           }
+
+           $artist = Artist::create([
+               'name' => $data['name'],
+               'content_az' => $data['content_az'],
+               'content_en' => $data['content_en'],
+               'status' =>$data['status'],
+               'image' => $path
+           ]);
+
+           $id = $artist->id;
+           foreach ($data['kategori'] as $kat) {
+               ArtistCategory::create([
+                   'artist_id' => $id,
+                   'category_id' => $kat
+               ]);
+           }
+
+
+           return redirect()->route('admin.ressamlar.index');
+
+
+           
+
+           
+           //dump($file);
+           //dump($file->getClientMimeType());
+           //dump($file->getClientOriginalExtension()); 
+           //dump($file->store('artists'));
+           //dump(Storage::disk('public')->put('artists',$file));
+           //dump($file->storeAs('artists','resim'.rand(10000,19999).'.'.$file->guessClientExtension() )  );
+           //dump(Storage::putFileAs('artists',$file, 'resim'.rand(10000,19999).'.'.$file->guessClientExtension() ));
+        }
+        
+        die;
+        //dd($data);
     }
 
     /**

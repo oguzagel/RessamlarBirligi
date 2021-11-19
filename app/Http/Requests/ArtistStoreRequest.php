@@ -28,8 +28,9 @@ class ArtistStoreRequest extends FormRequest
             'content_az' => 'required|min:15',
             'content_en' => 'required|min:15',
             'status' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,gif,jpg',
+            'image' => 'required',
             'image.*' => 'image|mimes:jpeg,png,gif,jpg',
+            'kategori' => 'required'
         ];
     }
 }
