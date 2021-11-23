@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArtistStoreRequest;
+use App\Http\Requests\ArtistUpdateRequest;
 use App\Models\Artist;
 use App\Models\ArtistCategory;
 use App\Models\Category;
@@ -126,7 +127,10 @@ class ArtistController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cats = Category::all();
+        $artist = Artist::with('categories')->whereKey($id)->first();
+
+        return view('admin.artist.edit', ['list' => $cats, 'artist' => $artist] ); 
     }
 
     /**
@@ -136,9 +140,56 @@ class ArtistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ArtistUpdateRequest $request, $id)
     {
-        //
+        $data = $request->validated();
+        
+        $artist = Artist::find($id);
+
+        if(!$artist){
+            $request->session()->flash('status-class', 'bg-danger');
+            $request->session()->flash('status-title', 'Error!');
+            $request->session()->flash('status', 'Böyle bir kayıt yok!');
+            return redirect()->route('admin.ressamlar.index');
+        }else{
+            $hasfile = $request->hasFile('image');
+            $path = null;
+            if($hasfile){
+                $file = $request->file('image');
+                try {
+                    $path = Storage::disk('public')->put('artists',$file) ;                  
+                } catch (\Throwable $th) {
+                    return response()->json(['error'=>'true', 'message'=>'Dosya yükleme hatası']);
+                }
+
+                Storage::delete($artist->image);
+            }
+
+            
+            $artist->name = $data["name"] ;
+            $artist->content_az = $data["content_az"] ;
+            $artist->content_en = $data["content_en"] ;
+            $artist->status = $data["status"] ;
+            if($hasfile)  $artist->image = $path;
+            $artist->save();
+
+
+            $artist->categories()->delete();
+
+            $id = $artist->id;
+            foreach ($data['kategori'] as $kat) {
+                ArtistCategory::create([
+                    'artist_id' => $id,
+                    'category_id' => $kat
+                ]);
+            }
+
+
+            return redirect()->route('admin.ressamlar.index');
+
+        }
+        
+        
     }
 
     /**

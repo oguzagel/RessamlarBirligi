@@ -16,6 +16,7 @@
                         <th><a href="{{  request()->fullUrlWithQuery(['sortBy' => 'id' , 'orderBy'=> $orderBy ]) }}">#</a></th>
                         <th><a href="{{  request()->fullUrlWithQuery(['sortBy' => 'name' , 'orderBy'=> $orderBy ]) }}">Name</a></th>
                         <th>Category</th>
+                        <th>Image</th>
                         <th>Status</th>
                         <th>-</th>
                     </tr>
@@ -34,6 +35,15 @@
                                     <s>Kategori yok</s>
                                 @endif
                             </td>
+                            <td class="lightgallery">
+                                @if ($artist->image)
+                                <a href="{{ Storage::url($artist->image) }}" data-exthumbimage="{{ Storage::url($artist->image) }}" data-src="{{ Storage::url($artist->image) }}">
+                                    <i class="fa fa-image"></i>
+                                </a>
+                                @endif
+                                
+                                
+                            </td>
                             <td>
                                 @if ($artist->status)
                                     <span class="badge light badge-success ">Aktif</span>
@@ -41,7 +51,7 @@
                                     <span class="badge light badge-danger ">Pasif</span>
                                 @endif 
                             </td>
-                            <td> <button class="btn btn-sm btn-success">İncele</button> </td>
+                            <td> <a href="{{ route('admin.ressamlar.edit',['ressamlar'=>$artist->id]) }}" class="btn btn-sm btn-success">Edit</a> </td>
                         </tr>
                     @endforeach
     
@@ -60,4 +70,20 @@
 @endsection
 
 
+@push('scripts')
+    
+    <script src="/vendor/lightgallery/js/lightgallery-all.min.js"></script>
+    <script>
+        $('.lightgallery').lightGallery({
+            loop:true,
+            thumbnail:true,
+            exThumbImage: 'data-exthumbimage'
+        });
+    </script>
 
+@endpush
+
+
+@push('styles')
+    <link href="/vendor/lightgallery/css/lightgallery.min.css" rel="stylesheet">
+@endpush
