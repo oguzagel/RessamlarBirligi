@@ -10,6 +10,7 @@
 							<span class="nav-text">Dashboard</span>
 						</a>
                         <ul aria-expanded="false">
+                            <li><a href="/laravel-filemanager/demo">media</a></li>
 							<li><a href="index.html">Dashboard</a></li>
 							<li><a href="event.html">Event</a></li>
 							<li><a href="event-detail.html">Event Detail</a></li>

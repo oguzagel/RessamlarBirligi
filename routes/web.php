@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ArtistController;
+use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +26,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware(['auth','isAdmin'])->prefix('admin')->name('admin.')->group(function(){
     Route::resource('ressamlar',ArtistController::class);
 });
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth','isAdmin']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
+Route::get('/lang/{lang}',[LanguageController::class,'switcLang']);
