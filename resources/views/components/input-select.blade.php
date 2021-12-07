@@ -8,7 +8,7 @@
     <div class="col-lg-6">
         <select name="{{ $name }}" multiple class="form-control default-select {{ $errors->has($name) ? 'is-invalid' : ''  }}" value="{{ $value ?? old($name) }}">
             @foreach ($list as $item)
-                <option {{ in_array($item->id,$vals) ? 'selected' : ''  }} value="{{ $item->id }}" >{{ $item }}</option>    
+                <option {{ in_array($item->id,$vals) ? 'selected' : ''  }} value="{{ $item->id }}" >{{ $item->name }}</option>    
             @endforeach
         </select>
         

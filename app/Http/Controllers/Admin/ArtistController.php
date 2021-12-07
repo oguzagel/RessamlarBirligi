@@ -23,8 +23,7 @@ class ArtistController extends Controller
         $orderBy = $request->orderBy ?? 'desc';
         $sortBy = $request->sortBy ?? 'id';
         $search = "";
-        $artists = Artist::with('categories')->orderBy($sortBy,$orderBy)->paginate(2);
-
+        $artists = Artist::with(['categories','works'])->orderBy($sortBy,$orderBy)->paginate(2);
 
         if($orderBy === 'desc')
          $orderBy = 'asc';
