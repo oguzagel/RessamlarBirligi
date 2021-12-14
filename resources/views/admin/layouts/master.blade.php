@@ -6,6 +6,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="csrf-token" content="{{ csrf_token() }}" />
+
     <title>Acara - Ticketing Bootstrap Admin Dashboard</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
@@ -101,6 +103,21 @@
 	<script src="/js/admin/dashboard/dashboard-1.js"></script>
 	
 	<script src="/vendor/toastr/js/toastr.min.js"></script>
+
+	<script src="/js/admin/plugins-init/jquery.form.min.js"></script>
+	
+	
+	<script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        </script>
+
+
+	
+
 	
 	@stack('scripts')
 

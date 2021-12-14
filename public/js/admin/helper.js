@@ -70,7 +70,70 @@ function showNotification(type="info", message = null){
 
 $(document).ready(function(){
     
-    $("#workform").submit(function(event){
+    $("#workform").ajaxForm({
+        beforeSubmit: function(){
+             if($('input[name=resim]')[0].files.length==0){
+                showNotification( "warning", 'Resim Eklyein.')
+                return false ;
+            }
+            
+             
+        },
+        uploadProgress : function(event, position, total, percentComplete){
+           $('#pbar .progress-bar').text( '%'+ percentComplete);
+           $('#pbar .progress-bar').css('width', percentComplete+'%');
+        },
+        success : function(data){
+            console.log(data);
+            if(data.error == false){
+                var text = `
+                <tr>
+                    <td>${data.data.id}</td>
+                    <td>${data.data.name_az}</td>
+                    <td>${data.data.name_en}</td>
+                    <td class="lightgallery">
+                        <a href="/storage/${data.data.path}" data-exthumbimage="/storage/${data.data.path}" data-src="/storage/${data.data.path}">
+                            <i class="fa fa-image"></i>
+                        </a>
+                    </td>
+                    <td>
+                        ${ data.data.status==true ? '<span class="badge light badge-success ">Aktif</span>' : '<span class="badge light badge-danger ">Pasif</span>'}    
+                        
+                        
+                    </td>
+                    <td> <a href="{{ route('admin.works.edit',['work'=>$work->id]) }}" class="btn btn-sm btn-success">Edit</a> </td>
+                </tr>
+                `;
+                
+                $('.workstable tbody').append(text);
+            
+                
+            }
+            //$("#workform").append(data);
+        }
+    });
+    
+    
+    $('.deletework').click(function(){
+        var btn = $(this);
+        var wid = $(this).attr('wid');
+        console.log(wid);
+
+        $.ajax({
+            type :  'DELETE',
+            url : '/admin/works/'+wid,
+            success : function(response){
+                console.log(response);
+                if(response.error == false){
+                    btn.parent().parent().remove();
+                }
+            }
+        });
+
+    });
+   
+   
+    /*  $("#workform").submit(function(event){
         event.preventDefault();
         
 
@@ -105,7 +168,7 @@ $(document).ready(function(){
 
 
         return false;
-    });
+    }); */
 
 
 });

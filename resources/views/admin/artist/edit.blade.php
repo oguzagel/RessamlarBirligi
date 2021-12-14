@@ -36,9 +36,9 @@
                     </form>     
                 </div>
 
-                <div class="tab-pane fade show active" id="work" role="tabpanel">
+                <div class="tab-pane fade show" id="work" role="tabpanel">
                     @if ($artist->works()->count()>0)
-                    <table class="table table-responsive-md">
+                    <table class="table table-responsive-md workstable">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -71,7 +71,7 @@
                                             <span class="badge light badge-danger ">Pasif</span>
                                         @endif 
                                     </td>
-                                    <td> <a href="{{ route('admin.works.edit',['work'=>$work->id]) }}" class="btn btn-sm btn-success">Edit</a> </td>
+                                    <td> <button wid="{{ $work->id }}" class="btn btn-sm btn-success deletework">Sil</button> </td>
                                 </tr>
                             @endforeach
             
@@ -88,11 +88,17 @@
                         <x-input-text name="name_az" head="Eser Adı (AZ)"/><hr>
                         <x-input-text name="name_en" head="Eser Adı (EN)"  /><hr>
                         <x-aktif-pasif name="status" head="Durumu" /><hr>
-                        <x-file-input name="resim" head="Resim"/><hr>
+                        <x-file-input name="resim" head="Resim"/>
+                        <x-progress-bar progressid="pbar" /><hr>
+                        
+
                         <input type="hidden" name="artist_id" value="{{ $artist->id }}">
                         <button class="btn btn-success btn-sm" type="submit">Kaydet</button>
 
                     </form>
+
+
+
                 </div>
             
             </div>

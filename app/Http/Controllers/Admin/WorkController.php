@@ -39,6 +39,7 @@ class WorkController extends Controller
      */
     public function store(Request $request)
     {
+        
         $validator = Validator::make($request->all(),[
             'name_en' => 'required',
             'name_az' => 'required',
@@ -57,7 +58,7 @@ class WorkController extends Controller
             $file = $request->file('resim');
             $path = null;
             try {
-                $path = Storage::disk('public')->put('works',$file);
+                $path = Storage::disk('public')->put('eserler',$file);
             } catch (\Throwable $th) {
                 return response()->json(['error'=>'true', 'message'=>'Dosya yükleme hatası']);
             }
@@ -73,7 +74,8 @@ class WorkController extends Controller
             if($work){
                 return response()->json([
                     'error' => false,
-                    'message' => 'Kayıt İşlemi başarılı'
+                    'message' => 'Kayıt İşlemi başarılı',
+                    'data' => $work
                 ]);
             }
 
@@ -133,6 +135,24 @@ class WorkController extends Controller
      */
     public function destroy($id)
     {
-        //
+       $work = Work::find($id);
+       if(!$work){
+        return response()->json(['error'=>true , 'message' => 'Silinecek Kayıt Bulunamadı']);
+       }
+
+
+       try {
+           
+        if(Storage::disk('public')->exists($work->path)){
+            Storage::disk('public')->delete($work->path);
+           }
+
+        $work->delete();
+
+       } catch (\Throwable $th) {
+            return response()->json(['error'=>true , 'message' => 'Kayıt Silinirken bir hata oluştu']);
+       }
+       
+        return response()->json(['error'=>false , 'message' => 'Kayıt başarıyla silindi.']);
     }
 }
