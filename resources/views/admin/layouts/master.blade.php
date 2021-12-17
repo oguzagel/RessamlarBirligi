@@ -165,6 +165,27 @@
 			}, 1000); 
 		});
 	</script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="basicModal">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">Modal body text goes here.</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary confirmbtn">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
 </body>
 
 <!-- Mirrored from acara.dexignzone.com/xhtml/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 05 Jun 2021 00:12:06 GMT -->

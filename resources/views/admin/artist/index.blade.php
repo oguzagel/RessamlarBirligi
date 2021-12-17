@@ -23,7 +23,7 @@
                 </thead>
                 <tbody>
                     @foreach ($artists as $artist)
-                        <tr>
+                        <tr class="art_{{ $artist->id}}">
                             <td>{{ $artist->id }}</td>
                             <td>{{ $artist->name }}</td>
                             <td>
@@ -51,7 +51,7 @@
                                     <span class="badge light badge-danger ">Pasif</span>
                                 @endif 
                             </td>
-                            <td> <a href="{{ route('admin.ressamlar.edit',['ressamlar'=>$artist->id]) }}" class="btn btn-sm btn-success">Edit</a> </td>
+                            <td> <a href="{{ route('admin.ressamlar.edit',['ressamlar'=>$artist->id]) }}" class="btn btn-sm btn-success">Edit</a>  <button aid="{{ $artist->id }}" class="btn btn-sm btn-warning deleteworkbtn" >Delete</button> </td>
                         </tr>
                     @endforeach
     
@@ -80,6 +80,9 @@
             exThumbImage: 'data-exthumbimage'
         });
     </script>
+
+<script src="/js/admin/helper.js"></script>
+
 
 @endpush
 

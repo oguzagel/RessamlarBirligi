@@ -131,6 +131,44 @@ $(document).ready(function(){
         });
 
     });
+
+
+    $('.deleteworkbtn').click(function(){
+        var aid = $(this).attr('aid');
+        $('#basicModal .modal-title').text('Silme Onayı');
+        $('#basicModal .modal-body').text('Bu sanatçıyı silmek istediğinizden emin misiniz?');
+        $('#basicModal .btn-danger').text('Hayır');
+        $('#basicModal .btn-primary').text('Sil');
+        $('#basicModal .btn-primary').attr('aid',aid); 
+        $('#basicModal').modal('show');
+    });
+
+    $(document).on('click','.confirmbtn',function(){
+        var aid = $(this).attr('aid');
+        console.log('on event ile çağırıldı');
+        $.ajax({
+            type : 'DELETE',
+            url : '/admin/ressamlar/'+aid,
+            success : function(response){
+                console.log(response);
+                if(response.error == true) {
+                    showNotification('warning',response.message);
+                    return false;
+                }else{
+                    //window.location.assign('/admin/ressamlar');
+                    $('.art_'+aid).remove();
+                    $('#basicModal').modal('hide');
+                }
+                
+                
+
+            },
+
+        });
+    });
+
+
+
    
    
     /*  $("#workform").submit(function(event){

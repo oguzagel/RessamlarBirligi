@@ -199,6 +199,24 @@ class ArtistController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $artist = Artist::find($id);
+        if(!$artist){
+            return response()->json(['error'=>'true', 'message'=>'Böyle bir kayıt bulunamadı']);
+        }
+
+        try {
+            if(Storage::disk('public')->exists($artist->image)){
+                Storage::disk('public')->delete($artist->image);
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['error'=>'true', 'message'=>'Resim Silinirken bir hata oluştu']);
+
+        }
+
+        $artist->delete();
+
+        return response()->json(['error'=>'false', 'message'=>'Silme işlemi başarılı']);
+        
+
     }
 }

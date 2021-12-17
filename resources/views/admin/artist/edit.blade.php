@@ -37,7 +37,6 @@
                 </div>
 
                 <div class="tab-pane fade show" id="work" role="tabpanel">
-                    @if ($artist->works()->count()>0)
                     <table class="table table-responsive-md workstable">
                         <thead>
                             <tr>
@@ -50,6 +49,9 @@
                             </tr>
                         </thead>
                         <tbody>
+                            
+                            @if ($artist->works()->count()>0)
+
                             @foreach ($artist->works as $work)
                                 <tr>
                                     <td>{{ $work->id }}</td>
@@ -74,13 +76,12 @@
                                     <td> <button wid="{{ $work->id }}" class="btn btn-sm btn-success deletework">Sil</button> </td>
                                 </tr>
                             @endforeach
-            
+                           
+                        @endif
                         </tbody>
                     </table>
 
-                    @else
-                        <p>Kayıt Yok!</p>
-                    @endif
+                   
                     
                     
                     <form action="{{ route('admin.works.store') }}" method="POST" id="workform" enctype="multipart/form-data">
