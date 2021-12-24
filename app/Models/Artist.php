@@ -12,6 +12,11 @@ class Artist extends Model
     
     protected $guarded = [  'id',   'created_at',      'updated_at',  ];
 
+
+    public function images(){
+        return $this->morphMany(Image::class,'imageable');
+    }
+
     public function works(){
         return $this->hasMany(Work::class);
     }

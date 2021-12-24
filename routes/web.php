@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ArtistController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WorkController;
 use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
@@ -25,7 +26,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
  
 Route::middleware(['auth','isAdmin'])->prefix('admin')->name('admin.')->group(function(){
+    Route::post('/ressamlar/storeimage/{id}',[ArtistController::class,'storeImage'])->name('ressamlar.storeImage');
     Route::resource('ressamlar',ArtistController::class);
+    Route::resource('user',UserController::class);
     Route::resource('works',WorkController::class);
 });
 

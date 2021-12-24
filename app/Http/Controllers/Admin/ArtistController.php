@@ -127,8 +127,7 @@ class ArtistController extends Controller
     public function edit($id)
     {
         $cats = Category::all();
-        $artist = Artist::with('categories')->whereKey($id)->first();
-
+        $artist = Artist::with(['categories','images'])->whereKey($id)->first();
         return view('admin.artist.edit', ['list' => $cats, 'artist' => $artist] ); 
     }
 
@@ -219,4 +218,21 @@ class ArtistController extends Controller
         
 
     }
+
+
+    public function storeImage($id)
+    {
+        $artist = Artist::find($id);
+        $artist->images()->create([
+            'path' => '/asdf/asdfasdfasd.jpg'
+        ]);
+
+        dd($artist->images());
+        //dd($artist);
+                
+        
+        return response()->json(['error'=>'false', 'message'=>'sotae image sathası']);
+ 
+    }
+
 }
