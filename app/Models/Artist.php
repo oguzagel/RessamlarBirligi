@@ -17,6 +17,13 @@ class Artist extends Model
         return $this->morphMany(Image::class,'imageable');
     }
 
+
+    public function tags(){
+        return $this->morphtoMany(Tag::class,'taggable');
+    }
+
+
+
     public function works(){
         return $this->hasMany(Work::class);
     }

@@ -8,8 +8,10 @@ use App\Http\Requests\ArtistUpdateRequest;
 use App\Models\Artist;
 use App\Models\ArtistCategory;
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ArtistController extends Controller
 {
@@ -127,8 +129,9 @@ class ArtistController extends Controller
     public function edit($id)
     {
         $cats = Category::all();
+        $tags = Tag::all();
         $artist = Artist::with(['categories','images'])->whereKey($id)->first();
-        return view('admin.artist.edit', ['list' => $cats, 'artist' => $artist] ); 
+        return view('admin.artist.edit', ['list' => $cats, 'artist' => $artist , 'tags' => $tags] ); 
     }
 
     /**
@@ -233,6 +236,39 @@ class ArtistController extends Controller
         
         return response()->json(['error'=>'false', 'message'=>'sotae image sathası']);
  
+    }
+
+
+    public function storeTags(Request $request,$id){
+        
+        $validator = Validator::make($request->all(),[
+            'tags' => 'required|array',
+        ]);
+
+        $data = $validator->validate();
+
+
+        //dd($request);
+        $artist = Artist::with(['tags','images'])->find($id);
+        
+        dd($artist);
+
+        //dd($data['tags']);
+        
+        foreach ($data['tags'] as $tag) {
+            
+            dump($tag);
+            
+            /*
+            $artist->tags()->create([
+                'id' => $tag
+            ]);
+            */
+        }
+        
+        
+
+
     }
 
 }

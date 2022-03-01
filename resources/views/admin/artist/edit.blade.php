@@ -18,6 +18,9 @@
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#images"><i class="la la-user mr-2"></i> Images</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tags"><i class="la la-user mr-2"></i> Tags</a>
+                </li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="home" role="tabpanel">
@@ -141,6 +144,18 @@
 
 
                 </div>
+
+                <div class="tab-pane fade show" id="tags" role="tabpanel">
+
+                    <form action="{{ route('admin.ressamlar.storeTags',['id'=>$artist->id]) }}" method="POST" id="workform" >
+                        @csrf
+                        <x-input-select name="tags[]" head="Sanatçı Adı*" :list="$tags"  /><hr>
+                        <button class="btn btn-success btn-sm" type="submit">Kaydet</button>
+                    </form>
+
+
+                </div>
+                
             
             </div>
         

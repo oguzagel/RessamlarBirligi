@@ -27,6 +27,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
  
 Route::middleware(['auth','isAdmin'])->prefix('admin')->name('admin.')->group(function(){
     Route::post('/ressamlar/storeimage/{id}',[ArtistController::class,'storeImage'])->name('ressamlar.storeImage');
+    Route::post('/ressamlar/storetags/{id}',[ArtistController::class,'storeTags'])->name('ressamlar.storeTags');
     Route::resource('ressamlar',ArtistController::class);
     Route::resource('user',UserController::class);
     Route::resource('works',WorkController::class);
